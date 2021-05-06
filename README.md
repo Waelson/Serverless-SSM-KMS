@@ -10,7 +10,7 @@ This project demonstrate how you can to use AWS System Manager and KMS with Lamb
 
 
 ## Steps
-### 1 - Creating KMS Keys
+### 1 - Creating KMS Key
 Command:
 ```bash
 aws kms create-key --description kms-poc-test
@@ -22,7 +22,7 @@ Output:
         "AWSAccountId": "<Account ID>",
         "KeyId": "xxxxxxx-8be9-448a-b2aa-xxxxxxxxxx",
         "Arn": "arn:aws:kms:us-east-1:<Account ID>:key/xxxxxxx-8be9-448a-b2aa-xxxxxxxxxx",
-        "CreationDate": 1620302223.792,
+        "CreationDate": 1620302223.000,
         "Enabled": true,
         "Description": "kms-poc-test",
         "KeyUsage": "ENCRYPT_DECRYPT",
