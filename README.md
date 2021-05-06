@@ -52,7 +52,7 @@ aws ssm put-parameter --name SECRET_VALUE --value 123456 --type SecureString  --
 sls create --template aws-nodejs --name <PROJECT-NAME>
 ```
 ### 4 - Setting serverless.yml
-```bash
+```yml
 ...
 custom:
   arnKmsKey: <Arn>
