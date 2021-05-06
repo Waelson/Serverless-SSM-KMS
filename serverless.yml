@@ -1,0 +1,38 @@
+service: serverless-ssm-kms
+
+frameworkVersion: '2'
+
+custom:
+  arnKmsKey: arn:aws:kms:us-east-1:<AccountID>:key/xxxxxxxxx-af77-40c6-ac8b-xxxxxxxxxxx
+  settings:
+    SECRET_VALUE: ${ssm:SECRET_VALUE}
+    PLAIN_SECRET_VALUE: ${ssm:SECRET_VALUE~true} #TRUE mean descrypt the value
+    PLAIN_VALUE: ${ssm:PLAIN_VALUE}
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  stage: dev
+  region: us-east-1
+  environment: ${self:custom.settings}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - kms:Decrypt
+        - kms:Encrypt
+      Resource:
+        - ${self:custom.arnKmsKey}  
+    - Effect: Allow
+      Action:
+        - states:*
+        - secretsmanager:*        
+      Resource: '*'
+functions:
+  hello:
+    handler: handler.hello
+    kmsKeyArn: ${self:custom.arnKmsKey} 
+    events:
+      - http:
+          method: get
+          path: ssm-kms   
