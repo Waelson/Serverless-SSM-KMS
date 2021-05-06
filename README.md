@@ -83,10 +83,10 @@ functions:
 ...
 ```  
 ### 5 - Getting parameters
-```bash
-  var myDbHost = process.env.SECRET_VALUE
-  var myDbPort = process.env.PLAIN_SECRET_VALUE
-  var myDbPort = process.env.PLAIN_VALUE  
+```javascript
+  const secretValue      = process.env.SECRET_VALUE
+  const plainSecretValue = process.env.PLAIN_SECRET_VALUE
+  const plainValue       = process.env.PLAIN_VALUE  
 ```
 
 ### 6 - Deploying project
