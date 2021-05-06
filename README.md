@@ -16,7 +16,7 @@ Command:
 aws kms create-key --description kms-poc-test
 ```
 Output:
-```bash
+```json
 {
     "KeyMetadata": {
         "AWSAccountId": "<Account ID>",
@@ -55,10 +55,10 @@ sls create --template aws-nodejs --name <PROJECT-NAME>
 ```yml
 ...
 custom:
-  arnKmsKey: <Arn>
+  arnKmsKey: <Arn> #ARN value generated in the first step
   settings:
     SECRET_VALUE: ${ssm:SECRET_VALUE}
-    PLAIN_SECRET_VALUE: ${ssm:SECRET_VALUE~true} #TRUE mean descrypt the value
+    PLAIN_SECRET_VALUE: ${ssm:SECRET_VALUE~true} #TRUE means decrypt parameter to the Lambda
     PLAIN_VALUE: ${ssm:PLAIN_VALUE}
 ...    
 provider:
@@ -76,12 +76,17 @@ provider:
         - states:*
         - secretsmanager:*        
       Resource: '*'  
+functions:
+  hello:
+    handler: handler.hello
+    kmsKeyArn: ${self:custom.arnKmsKey}       
 ...
 ```  
 ### 5 - Getting parameters
 ```bash
-  var myDbHost = process.env.DB_HOST
-  var myDbPort = process.env.DB_PORT
+  var myDbHost = process.env.SECRET_VALUE
+  var myDbPort = process.env.PLAIN_SECRET_VALUE
+  var myDbPort = process.env.PLAIN_VALUE  
 ```
 
 ### 6 - Deploying project
