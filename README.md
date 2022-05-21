@@ -1,5 +1,5 @@
 ## Description
-This project demonstrate how you can to use AWS System Manager and KMS with Lambda application.
+This project demonstrate how you can use AWS System Manager and KMS with Lambda application.
 
 ---
 
